@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Git Repo') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/your-org/your-repo.git'
+            }
+        }
+
+        stage('Copy ZIP to Destination') {
+            steps {
+                bat '''
+                set SRC=%WORKSPACE%\\database.zip
+                set DEST=C:\\Users\\adpra\\OneDrive\\Desktop\\Data\\Denodo\\destination
+
+                if not exist "%DEST%" mkdir "%DEST%"
+                copy "%SRC%" "%DEST%\\database.zip" /Y
+                '''
+            }
+        }
+
+        stage('Extract ZIP') {
+            steps {
+                bat '''
+                set ZIP=C:\\Users\\adpra\\OneDrive\\Desktop\\Data\\Denodo\\destination\\database.zip
+                set OUT=C:\\Users\\adpra\\OneDrive\\Desktop\\Data\\Denodo\\checkpoint
+
+                if not exist "%OUT%" mkdir "%OUT%"
+                powershell -Command "Expand-Archive -LiteralPath '%ZIP%' -DestinationPath '%OUT%' -Force"
+                '''
+            }
+        }
+    }
+}
