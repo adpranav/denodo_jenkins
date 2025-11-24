@@ -1,0 +1,9 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF code
+    FOLDER = '/dauto'
+    ROUTE LOCAL 'LocalConnection' '${databases.admin.folder.dauto.datasources.df.code.ROUTE.LOCAL.PATH}' FILENAMEPATTERN = ''
+    CHARSET = 'UTF-8'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+

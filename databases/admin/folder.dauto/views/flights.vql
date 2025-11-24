@@ -1,0 +1,32 @@
+﻿CREATE OR REPLACE WRAPPER DF flights
+    FOLDER = '/dauto'
+    DATASOURCENAME=flights
+    OUTPUTSCHEMA (
+        sno = 'sno',
+        from_0 = 'from',
+        to_0 = 'to',
+        airline = 'airline'
+    );
+
+CREATE OR REPLACE TABLE flights I18N au_cst (
+        sno:text,
+        from_0:text,
+        to_0:text,
+        airline:text
+    )
+    FOLDER = '/dauto'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD flights(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD sno NOS ZERO ()
+             ADD from_0 NOS ZERO ()
+             ADD to_0 NOS ZERO ()
+             ADD airline NOS ZERO ()
+        )
+        OUTPUTLIST (airline, from_0, sno, to_0
+        )
+        WRAPPER (df flights)
+    );
+

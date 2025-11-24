@@ -1,0 +1,26 @@
+﻿CREATE OR REPLACE WRAPPER DF code
+    FOLDER = '/dauto'
+    DATASOURCENAME=code
+    OUTPUTSCHEMA (
+        code = 'code',
+        full_0 = 'full'
+    );
+
+CREATE OR REPLACE TABLE code I18N au_cst (
+        code:text,
+        full_0:text
+    )
+    FOLDER = '/dauto'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD code(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD code NOS ZERO ()
+             ADD full_0 NOS ZERO ()
+        )
+        OUTPUTLIST (code, full_0
+        )
+        WRAPPER (df code)
+    );
+
