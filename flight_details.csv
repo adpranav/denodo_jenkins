@@ -1,0 +1,7 @@
+Flight_ID,Airline,Origin,Destination,Departure_Time,Status
+AI-101,Air India,DEL,JFK,02:00,On Time
+BA-245,British Airways,LHR,BOM,10:15,Delayed
+EK-505,Emirates,DXB,BLR,14:30,Boarding
+LH-789,Lufthansa,FRA,SIN,22:00,Scheduled
+UA-044,United,SFO,EWR,06:45,Cancelled
+UA-045,United,SFO,VTZ,06:45,Boarding

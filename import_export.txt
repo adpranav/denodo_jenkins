@@ -1,0 +1,38 @@
+exporting
+
+C:\Denodo\DenodoPlatform9\bin\export.bat ^
+ -l admin ^
+ -p admin ^
+ -h localhost:9999/admin ^
+ -r "C:\Users\adpra\OneDrive\Desktop\Data\Denodo\checkpoint" ^
+ -re "admin:folder:/dauto" ^
+ -P includeDependencies=yes
+
+
+
+
+
+
+importing
+
+"C:\Denodo\DenodoPlatform9\bin\import.bat" ^
+ -r "C:\Users\adpra\OneDrive\Desktop\Data\Denodo\checkpoint" ^
+ -re "admin:folder:/dauto" ^
+ -P includeDependencies=yes ^
+ -h "//localhost:9999/test?admin@admin" ^
+ -su
+
+
+token: 
+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
+
+checkpoint
+	databases
+		admin
+			folder.auto
+				datasources
+					df
+				views
+				dauto.vql
+
+
