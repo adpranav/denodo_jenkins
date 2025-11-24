@@ -1,0 +1,166 @@
+﻿# Generated with Denodo Platform 9.3.3.
+
+#-------------------------------------------
+# Denodo Export
+#
+# URI: //localhost:9999/admin
+# Database(s): admin 
+# Date: 23-Nov-2025, 7:44:11 pm IST
+#-------------------------------------------
+
+
+# 0 ====================================================================
+
+# #######################################
+# DATABASE
+# #######################################
+# #######################################
+# FOLDERS
+# #######################################
+CREATE OR REPLACE FOLDER '/dauto' ;
+
+# #######################################
+# RESOURCES
+# #######################################
+# No vault resources
+# #######################################
+# LISTENERS JMS
+# #######################################
+# No listeners jms
+# #######################################
+# LISTENERS KAFKA
+# #######################################
+# No listeners kafka
+# #######################################
+# DATASOURCES
+# #######################################
+DROP DATASOURCE DF IF EXISTS code CASCADE;
+
+CREATE DATASOURCE DF code
+    FOLDER = '/dauto'
+    ROUTE LOCAL 'LocalConnection' 'C:/Denodo/DenodoPlatform9/flight_mapping.csv' FILENAMEPATTERN = ''
+    CHARSET = 'UTF-8'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+
+DROP DATASOURCE DF IF EXISTS flights CASCADE;
+
+CREATE DATASOURCE DF flights
+    FOLDER = '/dauto'
+    ROUTE LOCAL 'LocalConnection' 'C:/Denodo/DenodoPlatform9/dest.csv' FILENAMEPATTERN = ''
+    CHARSET = 'UTF-8'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+
+DROP DATASOURCE DF IF EXISTS join_cond CASCADE;
+
+CREATE DATASOURCE DF join_cond
+    FOLDER = '/dauto'
+    ROUTE LOCAL 'LocalConnection' 'C:/Denodo/DenodoPlatform9/join_cond.csv' FILENAMEPATTERN = ''
+    CHARSET = 'UTF-8'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+
+# #######################################
+# WRAPPERS
+# #######################################
+DROP WRAPPER DF IF EXISTS code CASCADE;
+
+CREATE WRAPPER DF code
+    FOLDER = '/dauto'
+    DATASOURCENAME=code
+    OUTPUTSCHEMA (
+        code = 'code',
+        full_0 = 'full'
+    );
+
+DROP WRAPPER DF IF EXISTS flights CASCADE;
+
+CREATE WRAPPER DF flights
+    FOLDER = '/dauto'
+    DATASOURCENAME=flights
+    OUTPUTSCHEMA (
+        sno = 'sno',
+        from_0 = 'from',
+        to_0 = 'to',
+        airline = 'airline'
+    );
+
+# #######################################
+# STORED PROCEDURES
+# #######################################
+# No stored procedures
+# #######################################
+# TYPES
+# #######################################
+# No types
+# #######################################
+# MAPS
+# #######################################
+# No maps
+# #######################################
+# BASE VIEWS
+# #######################################
+DROP VIEW IF EXISTS code CASCADE;
+
+CREATE TABLE code I18N au_cst (
+        code:text,
+        full_0:text
+    )
+    FOLDER = '/dauto'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD code(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD code NOS ZERO ()
+             ADD full_0 NOS ZERO ()
+        )
+        OUTPUTLIST (code, full_0
+        )
+        WRAPPER (df code)
+    );
+
+DROP VIEW IF EXISTS flights CASCADE;
+
+CREATE TABLE flights I18N au_cst (
+        sno:text,
+        from_0:text,
+        to_0:text,
+        airline:text
+    )
+    FOLDER = '/dauto'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD flights(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD sno NOS ZERO ()
+             ADD from_0 NOS ZERO ()
+             ADD to_0 NOS ZERO ()
+             ADD airline NOS ZERO ()
+        )
+        OUTPUTLIST (airline, from_0, sno, to_0
+        )
+        WRAPPER (df flights)
+    );
+
+# #######################################
+# VIEWS
+# #######################################
+# No views
+# #######################################
+# ASSOCIATIONS
+# #######################################
+# No associations
+# #######################################
+# WEBSERVICES
+# #######################################
+# No web services
+# #######################################
+# WEBCONTAINER WEB SERVICE DEPLOYMENTS
+# #######################################
+# No deployed web services
